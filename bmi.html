@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>BMI Calculator</title>
+	
+	<!-- JS -->
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
+
+	<script type="text/javascript" src="vue.js"></script>
+</head>
+<body>
+	<div id="app">
+<div style="background-color: black" >
+	<center>
+
+		<h1 style="color:blue">{{message}}</h1>
+
+		
+		
+ 
+		<label style="color:blue;font-style: bold;font-size: 20px">Your Height(feet):</label>
+		<input type="number" name="number" v-model="feet"><br><br>
+		<label style="color:blue;font-style: bold;font-size: 20px">Your Height(inches):</label>
+		<input type="number" name="number" v-model="inches">
+		<br><br>
+		<label style="color:blue;font-style: bold;font-size: 20px">Your Weight(pounds)</label>
+		<input type="number" name="number" v-model="weight">
+		<br><br>
+		<button v-on:click="btn" id="cal">BMI:{{bmi}}</button>
+	
+		<div style="margin-left: 100px;margin-top: 20px">
+
+			
+			<span style="color: yellow" >If your BMI is less than 18.5,color will show yellow</span>
+			<span style="color: green">If your BMI is between 18.5 and 25,color will show green</span>
+			<span style="color: orange">If your BMI is between  25 and 30 ,color will show orange</span>
+			<span style="color: red">If your BMI is greater than 30,color will show red</span>
+		</div>
+		<br>
+</center>
+
+	</div>
+
+	
+</div>
+
+	<script type="text/javascript">
+		var app = new Vue({
+			el:'#app',
+			data:{
+				message:'BMI Calculator',
+				feet:'',
+				inches:'',
+				weight:'',
+				bmi:''
+
+			},
+			methods:{
+				btn(){
+					var feets =parseInt(this.feet);
+					var inches=parseInt(this.inches);
+					var inches1=feets*12;
+					var height = inches+inches1;
+					var weights = parseInt(this.weight);
+					var total = ((weights/(height*height))*703).toFixed(1);
+					this.bmi=total;
+
+					if(total < 18.5){
+						$("#cal").text('UnderWeight').css('color','yellow',);
+					}
+					else if (total >=18.5 && total <24.9) {
+						$("#cal").text('NormalWeight').css('color','green');
+						
+					}
+					else if (total >=25 && total <29.9){
+						$("#cal").text('OverWeight').css('color','orange');			
+					}
+					else{
+						$("#cal").text('Obese').css('bcolor','red');
+					}
+					
+				}
+			},
+
+
+		})
+				
+	</script>
+</body>
+</html>
